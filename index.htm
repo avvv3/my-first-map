@@ -13,6 +13,10 @@
       padding: 0;
     }
 
+    img {
+      width: 200px;
+    }
+
     #map {
       position: absolute;
       top: 0;
@@ -28,10 +32,19 @@
     mapboxgl.accessToken = 'pk.eyJ1IjoiYXZ2djMiLCJhIjoiY21nNW1ybGJoMDM4djJsb2lpZHRmb2tsdiJ9.3-H4-FI4bONIhWgUZpmelg';
     const map = new mapboxgl.Map({
       container: 'map',
-      // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
-      style: 'mapbox://styles/mapbox/outdoors-v12',
-      center: [-121.403732, 40.492392],
-      zoom: 10
+      /*
+      Choose from Mapbox's core styles, or make your own style with Mapbox Studio
+      Mapbox Outdoors: mapbox://styles/mapbox/outdoors-v12
+      Mapbox Light: mapbox://styles/mapbox/light-v11
+      Mapbox Dark: mapbox://styles/mapbox/dark-v11
+      Mapbox Satellite: mapbox://styles/mapbox/satellite-v9
+      Mapbox Satellite Streets: mapbox://styles/mapbox/satellite-streets-v12
+      Mapbox Streets: mapbox://styles/mapbox/streets-v12
+      */
+      style: 'mapbox://styles/avvv3/cmgijvswx000o01sp5pn01j3m',
+      center: [-91.8318, 37.9643],
+      zoom: 1,
+  projection: 'mercator'
     });
 
     map.on('load', () => {
@@ -49,6 +62,7 @@
               "properties": {
                 'name': "Resturant",
                 'description': "I ate really good seafood",
+                'image':"img/seafood.jpg",
               }
             },
             {
@@ -56,11 +70,12 @@
               'geometry': {
                 'type': 'Point',
                 'coordinates': [159.4407, 21.8769]
-// ],
+
               },
               "properties": {
                 'name': "Boat",
                 'description': "I went on a cruise here",
+                'image':"img/cruise.jpg",
               }
             },
             {
@@ -72,6 +87,7 @@
               "properties": {
                 'name': "Starbucks",
                 'description': "I would always go here after school in 9th Grade",
+                'image':"img/starbucks.jpg"
               }
             }
           ]
@@ -88,24 +104,25 @@
         },
         'filter': ['==', '$type', 'Point']
       });
-    });
-
+   
+    // add popup on click
     map.addInteraction('popup', {
       type: 'click',
       target: { layerId: 'my-places' },
       handler: (e) => {
-        // Copy coordinates array.
+        // add popup on click
         const coordinates = e.feature.geometry.coordinates.slice();
         const name = e.feature.properties.name;
         const description = e.feature.properties.description;
+        const image = e.feature.properties.image;
 
         new mapboxgl.Popup()
-          .setLngLat(coordinates)
-          .setHTML("<br><strong>" + name + "</strong><br/>" + description)
-          .addTo(map);
+        .setLngLat(coordinates)
+        .setHTML("<img src='" + image + "'><br><strong>" + name + "</strong><br/>" + description)
+        .addTo(map);
       }
     });
-
+ });
   </script>
 
 </body>
