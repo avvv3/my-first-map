@@ -8,7 +8,7 @@
 
 Heres My Demo:
 
-<img src="/img/demo1.gif" alt="GIF demo showing how a user can toggle through various maps and view the detailed itinerary" width="300"/>
+<img src="img/demo1.gif" alt="GIF demo showing how a user can toggle through various maps and view the detailed itinerary" width="300"/>
 
 
 ### Code Spotlight
